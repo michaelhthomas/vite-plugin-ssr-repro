@@ -1,23 +1,22 @@
 <template>
-  <div id="app">
-    <div class="layout">
-      <div class="navigation">
-        <a href="/" class="logo">
-          <img src="./logo.svg" height="64" width="64" alt="logo" />
-        </a>
-        <Link to="/">Home</Link>
-        <Link to="/test">Test</Link>
-      </div>
-      <div class="content">
-        <h1>Current urlPathname: {{ $pageContext.urlPathname }}</h1>
-        <slot />
-      </div>
+  <div class="layout">
+    <div class="navigation">
+      <a href="/" class="logo">
+        <img src="./assets/logo.svg" height="64" width="64" alt="logo" />
+      </a>
+      <Link to="/">Home</Link>
+      <Link to="/test">Test</Link>
+      <Link to="/spa">Spa</Link>
+    </div>
+    <div class="content">
+      <h1>Current urlPathname: {{ $router.currentRoute.fullPath }}</h1>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script setup>
-import Link from './Link.vue'
+import Link from 'src/components/Link.vue'
 </script>
 
 <style>

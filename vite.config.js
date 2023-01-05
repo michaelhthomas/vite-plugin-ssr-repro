@@ -1,13 +1,18 @@
 import vue from '@vitejs/plugin-vue2'
-import ssr from 'vite-plugin-ssr/plugin'
+import { defineConfig } from 'vite'
+import path from 'path'
 
-export default {
-  plugins: [vue(), ssr({
-    prerender: {
-      disableAutoRun: true
-    },
-  })],
+export default defineConfig(({ mode }) => ({
+  define: {
+    "__DEV__":  (mode === "development").toString(),
+  },
+  plugins: [vue()],
   ssr: {
     noExternal: ['@apollo/client', '@vue/apollo-composable'],
+  },
+  resolve: {
+    alias: {
+      'src': path.resolve('./src')
+    }
   }
-}
+}));

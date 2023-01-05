@@ -2,15 +2,18 @@
   "name": "apollo-compsable-repro",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "npm run server:dev",
     "prod": "npm run build && npm run prerender && npm run preview",
-    "build": "vite build",
-    "prerender": "node ./prerender",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
+    "prerender": "vite build --ssrManifest --outDir dist/static && npm run build:server && tsx prerender",
     "preview": "vite preview",
-    "server:dev": "node ./server",
-    "server:prod": "cross-env NODE_ENV=production node ./server"
+    "server:dev": "tsx ./server",
+    "server:prod": "cross-env NODE_ENV=production tsx ./server"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
@@ -22,12 +25,16 @@
     "vue-router": "3"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.15",
     "@vitejs/plugin-vue2": "^2.2.0",
     "compression": "^1.7.4",
     "cross-fetch": "^3.1.5",
     "express": "^4.18.2",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.4",
     "vite": "^4.0.3",
-    "vite-plugin-ssr": "^0.4.68",
+    "vite-plugin-favicon": "^1.0.8",
     "vue-server-renderer": "^2.7.14"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="to" :class="{ active: $pageContext.urlPathname === $attrs.href }">
+  <router-link :to="to" :class="{ active: $router.currentRoute.fullPath === $attrs.to }">
     <slot />
   </router-link>
 </template>
